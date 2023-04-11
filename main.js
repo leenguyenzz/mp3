@@ -38,6 +38,7 @@ const playlist = $('.playlist')
 
 const app = {
   currentIndex: 0,
+  newSongs: [],
   isPlaying: false,
   isRandom: false,
   isRepeat: false,
@@ -226,6 +227,7 @@ const app = {
       } else {
         _this.prevSong()
       }
+      _this.render()
       audio.play()
       _this.scrollToActiveSong()
     }
@@ -257,8 +259,7 @@ const app = {
     playlist.onclick = function (e) {
       const songNode = e.target.closest('.song:not(.active)')
       const optionNode = e.target.closest('.option')
-      const heartNode = e.target.closest('.add-favorite-icon')
-      if (songNode || optionNode || heartNode) {
+      if (songNode || optionNode) {
         // handle when click on a song  => play that song
         if (songNode) {
           //get data-index of clicked song
@@ -267,13 +268,8 @@ const app = {
           _this.render()
           audio.play()
         }
-        //handle when click on option of a song => dont play
+        //handle when click on option of a song => show ...
         if (optionNode) {
-          audio.pause()
-        }
-        //handle when click on option of a song => dont play
-        if (heartNode) {
-          audio.pause()
         }
       }
     }
@@ -306,7 +302,18 @@ const app = {
 
     // Object.assign(this, this.config);
   },
+  compareSong: function () {
+    let isCorrect = this.newSongs.every(function (song) {
+      return song.name !== app.songs[app.currentIndex].name
+    })
+    if (isCorrect) {
+      this.newSongs.push(this.currentSong)
+    }
+    if (this.newSongs.length === this.songs.length)
+      this.newSongs = [this.currentSong]
+  },
   nextSong: function () {
+    this.compareSong()
     this.currentIndex++
     if (this.currentIndex >= this.songs.length) {
       this.currentIndex = 0
@@ -314,6 +321,7 @@ const app = {
     this.loadCurrentSong()
   },
   prevSong: function () {
+    this.compareSong()
     this.currentIndex--
     if (this.currentIndex < 0) {
       this.currentIndex = this.songs.length - 1
@@ -321,10 +329,14 @@ const app = {
     this.loadCurrentSong()
   },
   playRandomSong: function () {
+    this.compareSong()
     let newIndex
     do {
       newIndex = Math.floor(Math.random() * this.songs.length)
-    } while (newIndex == this.currentIndex)
+      isCorrect = this.newSongs.every(function (song) {
+        return song.name !== app.songs[newIndex].name
+      })
+    } while (!isCorrect)
 
     this.currentIndex = newIndex
     this.loadCurrentSong()
