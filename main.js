@@ -18,6 +18,8 @@ const $$ = document.querySelectorAll.bind(document)
 // constants => capitalization
 const PLAYER_STORAGE_KEY = 'F8_PLAYER'
 
+const title = $('.title')
+
 const player = $('.player')
 const cd = $('.cd')
 const heading = $('header h2')
@@ -295,6 +297,7 @@ const app = {
     heading.textContent = this.currentSong.name
     cdThumb.style.backgroundImage = `url('${this.currentSong.img}')`
     audio.src = this.currentSong.path
+    title.innerText = `${this.currentSong.name} - ${this.currentSong.singer}`
   },
   loadConfig: function () {
     this.isRandom = this.config.isRandom
