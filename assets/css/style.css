@@ -52,6 +52,7 @@ html {
   width: 100%;
   max-width: 480px;
   z-index: 999;
+  box-shadow: 0px -5px 10px #631387;
 }
 
 /* HEADER */
@@ -148,8 +149,10 @@ header h2 {
 
 /* PLAYLIST */
 .playlist {
-  margin-top: 408px;
+  margin-top: 427px;
   padding: 12px;
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 10px #631387;
 }
 
 .song {
