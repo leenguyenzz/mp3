@@ -43,7 +43,7 @@ html {
 
 .dashboard {
   padding: 16px 16px 14px;
-  background-image: url(/assets/img/1.jpg);
+/*   background-image: url(/assets/img/1.jpg); */
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
