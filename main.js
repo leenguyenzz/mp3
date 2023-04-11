@@ -154,7 +154,7 @@ const app = {
     // Handle CD spins / stops
     const cdThumbAnimate = cdThumb.animate([{ transform: 'rotate(360deg)' }], {
       duration: 10000, //10 seconds
-      interations: Infinity,
+      iterations: Infinity,
     })
     cdThumbAnimate.pause()
 
